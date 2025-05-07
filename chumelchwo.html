@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Biografi & Kirim Pesan</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+    .card { background: white; padding: 15px; margin-top: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    textarea, input { width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px; }
+    #dashboardSection { display: none; }
+  </style>
+</head>
+<body>
+
+  <h2>yudi anjiear</h2>
+  <p>woip kento, kirim pesan bjat saya ya (malas hias yangok)</p>
+
+  <h3>kirim pesan ya wok</h3>
+  <form id="form">
+    <label>dari siapa inih</label><br>
+    <input type="text" id="from" required><br>
+
+    <label>pesanyvyavyabgok</label><br>
+    <textarea id="message" required></textarea><br>
+
+    <input type="submit" value="klik kirim ini yha">
+  </form>
+
+  <hr>
+
+  <h3>login owner yangok buat bisa loat pesan kalian</h3>
+  <input type="password" id="password" placeholder="topsikret">
+  <button onclick="login()">sahenonli</button>
+
+  <div id="dashboardSection">
+    <h3>Dashboard Pesan (Owner)</h3>
+    <div id="dashboard"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("form");
+    const dashboard = document.getElementById("dashboard");
+    const dashboardSection = document.getElementById("dashboardSection");
+
+    // Ambil pesan dari localStorage
+    let messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("from").value;
+      const msg = document.getElementById("message").value;
+
+      messages.push({ name, msg });
+      localStorage.setItem("messages", JSON.stringify(messages)); // Simpan ke localStorage
+
+      form.reset();
+      alert("Pesan berhasil dikirim!");
+    });
+
+    function login() {
+      const pw = document.getElementById("password").value;
+      if (pw === "ownernyasaya") {
+        dashboard.innerHTML = "";
+        messages.forEach(m => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `<strong>${m.name}:</strong><br>${m.msg}`;
+          dashboard.prepend(card);
+        });
+        dashboardSection.style.display = "block";
+      } else {
+        alert("salah yanhok!");
+      }
+    }
+  </script>
+  <style>
+    atmin malas ngehias
+  </style>
+
+</body>
+</html>
